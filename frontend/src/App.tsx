@@ -1,4 +1,4 @@
-function App(){
+function App() {
   return (
     <main>
       <h1>Internship project tracker</h1>
