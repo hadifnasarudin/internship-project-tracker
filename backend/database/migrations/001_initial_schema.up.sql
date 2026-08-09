@@ -13,10 +13,10 @@ CREATE TABLE users (
         CHECK (role IN ('student', 'supervisor', 'admin')),
 
     CONSTRAINT users_email_not_blank_check
-        CHECK (BTRIM(name) <> ''),
+        CHECK (BTRIM(email) <> ''),
 
     CONSTRAINT users_name_not_blank_check
-        CHECK (BTRIM(email) <> '')
+        CHECK (BTRIM(name) <> '')
 );
 
 CREATE TABLE internships (
@@ -48,7 +48,7 @@ CREATE TABLE internships (
         CHECK (BTRIM(company_name) <> ''),
 
     CONSTRAINT internships_position_not_blank_check
-        CHECK (BTRIM(position) <> ''),
+        CHECK (BTRIM(position) <> '')
 );
 
 CREATE TABLE projects (
@@ -57,6 +57,7 @@ CREATE TABLE projects (
     name VARCHAR(200) NOT NULL,
     description TEXT,
     status VARCHAR(30) NOT NULL DEFAULT 'planned',
+    progress INTEGER NOT NULL DEFAULT 0,
     start_date DATE,
     end_date DATE ,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -69,7 +70,7 @@ CREATE TABLE projects (
 
     CONSTRAINT projects_status_check
         CHECK (status IN (
-            'not_started'
+            'planned',
             'in_progress', 
             'on_hold', 
             'completed', 
@@ -77,7 +78,7 @@ CREATE TABLE projects (
             )
         ),
 
-    CONTRAINT projects_progress_check
+    CONSTRAINT projects_progress_check
         CHECK (progress BETWEEN 0 AND 100),
 
     CONSTRAINT projects_date_check
@@ -87,8 +88,8 @@ CREATE TABLE projects (
             OR end_date >= start_date
         ),
 
-    CONSTRAINT projects_title_not_blank_check
-        CHECK (BTRIM(title) <> '')
+    CONSTRAINT projects_name_not_blank_check
+        CHECK (BTRIM(name) <> '')
 );
 
 CREATE TABLE tasks (
@@ -129,7 +130,7 @@ CREATE TABLE tasks (
     CONSTRAINT tasks_completed_at_check
         CHECK (
             status = 'completed' OR completed_at IS NULL
-        )
+        ),
 
     CONSTRAINT tasks_title_not_blank_check
         CHECK (BTRIM(title) <> '')
@@ -150,8 +151,8 @@ CREATE TABLE technologies (
                 'devops', 
                 'mobile', 
                 'other'
-            );
-        )
+            )
+        ),
 
     CONSTRAINT technologies_name_not_blank_check
         CHECK (BTRIM(name) <> '')

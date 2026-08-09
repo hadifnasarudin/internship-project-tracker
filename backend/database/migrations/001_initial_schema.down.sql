@@ -1,0 +1,12 @@
+BEGIN;
+
+DROP TABLE IF EXISTS daily_activities;
+DROP TABLE IF EXISTS weekly_reports;
+DROP TABLE IF EXISTS project_technologies;
+DROP TABLE IF EXISTS technologies;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS internships;
+DROP TABLE IF EXISTS users;
+
+COMMIT;
